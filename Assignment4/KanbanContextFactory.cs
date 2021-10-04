@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
-using Lecture04.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +8,7 @@ using Assignment4.Entities;
 
 namespace Assignment4
 {
-    public class ComicsContextFactory : IDesignTimeDbContextFactory<KanbanContext>
+    public class KanbanContextFactory : IDesignTimeDbContextFactory<KanbanContext>
     {
         public KanbanContext CreateDbContext(string[] args)
         {
@@ -23,42 +23,41 @@ namespace Assignment4
 
         public static void Seed(KanbanContext context)
         {
-            context.Database.ExecuteSqlRaw("DELETE dbo.CharacterPower");
-            context.Database.ExecuteSqlRaw("DELETE dbo.Characters");
-            context.Database.ExecuteSqlRaw("DELETE dbo.Powers");
-            context.Database.ExecuteSqlRaw("DELETE dbo.Cities");
-            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Powers', RESEED, 0)");
-            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Cities', RESEED, 0)");
-            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Characters', RESEED, 0)");
+            context.Database.ExecuteSqlRaw("DELETE dbo.Tasks");
+            context.Database.ExecuteSqlRaw("DELETE dbo.Tags");
+            context.Database.ExecuteSqlRaw("DELETE dbo.Users");
+            context.Database.ExecuteSqlRaw("DELETE dbo.TaskRepositories");
+            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Tasks', RESEED, 0)");
+            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Tags', RESEED, 0)");
+            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Users', RESEED, 0)");
+            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.TaskRepositories', RESEED, 0)");
 
-            var metropolis = new City { Name = "Metropolis" };
-            var gothamCity = new City { Name = "Gotham City" };
-            var themyscira = new City { Name = "Themyscira" };
+            var user = new User {
+                Id = 1,
+                Name = "Snoop Dog",
+                Email = "abc@skrrrt.com",
+                Tasks = new List<Task>()
+            };
 
-            var superStrength = new Power { Name = "super strength" };
-            var flight = new Power { Name = "flight" };
-            var invulnerability = new Power { Name = "invulnerability" };
-            var superSpeed = new Power { Name = "super speed" };
-            var heatVision = new Power { Name = "heat vision" };
-            var freezeBreath = new Power { Name = "freeze breath" };
-            var xRayVision = new Power { Name = "x-ray vision" };
-            var superhumanHearing = new Power { Name = "superhuman hearing" };
-            var healingFactor = new Power { Name = "healing factor" };
-            var exceptionalMartialArtist = new Power { Name = "exceptional martial artist" };
-            var combatStrategy = new Power { Name = "combat strategy" };
-            var inexhaustibleWealth = new Power { Name = "inexhaustible wealth" };
-            var brilliantDeductiveSkill = new Power { Name = "brilliant deductive skill" };
-            var advancedTechnology = new Power { Name = "advanced technology" };
-            var combatSkill = new Power { Name = "combat skill technology" };
-            var superhumanAgility = new Power { Name = "superhuman weaponry" };
-            var magicWeaponry = new Power { Name = "magic agility" };
-            var gymnasticAbility = new Power { Name = "gymnastic ability" };
+            var tag = new Tag {
+              Id = 1,
+              Name = "Skrrrt",
+              Tasks = new List<Task>()
+            };
 
-            context.Characters.AddRange(
-                new Character { GivenName = "Clark", Surname = "Kent", AlterEgo = "Superman", Occupation = "Reporter", City = metropolis, Gender = Male, FirstAppearance = DateTime.Parse("1938-04-18"), Powers = new[] { superStrength, flight, invulnerability, superSpeed, heatVision, freezeBreath, xRayVision, superhumanHearing, healingFactor } },
-                new Character { GivenName = "Bruce", Surname = "Wayne", AlterEgo = "Batman", Occupation = "CEO of Wayne Enterprises", City = gothamCity, Gender = Male, FirstAppearance = DateTime.Parse("1939-05-01"), Powers = new[] { exceptionalMartialArtist, combatStrategy, inexhaustibleWealth, brilliantDeductiveSkill, advancedTechnology } },
-                new Character { GivenName = "Diana", AlterEgo = "Wonder Woman", Occupation = "Amazon Princess", City = themyscira, Gender = Female, FirstAppearance = DateTime.Parse("1941-10-21"), Powers = new[] { superStrength, invulnerability, flight, combatSkill, combatStrategy, superhumanAgility, healingFactor, magicWeaponry } },
-                new Character { GivenName = "Selina", Surname = "Kyle", AlterEgo = "Catwoman", Occupation = "Thief", City = gothamCity, Gender = Female, FirstAppearance = DateTime.Parse("1940-04-01"), Powers = new[] { exceptionalMartialArtist, gymnasticAbility, combatSkill } }
+            var task = new Task {
+                Id = 1,
+                Title = "Work on it",
+                AssignedTo = user,
+                Description = "Yeeet",
+                State = Core.State.Active,
+                Tags = new List<Tag> { tag }
+            };
+
+            tag.Tasks.Add(task);
+
+            context.Users.AddRange(
+                user
             );
 
             context.SaveChanges();

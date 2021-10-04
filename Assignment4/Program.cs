@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using Assignment4.Entities;
 
 namespace Assignment4
 {
@@ -7,10 +8,14 @@ namespace Assignment4
     {
         static void Main(string[] args)
         {
-            //var configuration = LoadConfiguration();
-            //var connectionString = configuration.GetConnectionString("Futurama");
-            var connectionString = "Server=localhost;Database=Kanban;User Id=sa;Password=cb715ee5-3230-43a3-9fc2-adb1ed99d316";
+            KanbanContextFactory factory = new KanbanContextFactory();
+            KanbanContext kc = factory.CreateDbContext(args);
+
+            KanbanContextFactory.Seed(kc);
+
             
+
+
             // using var connection = new SqlConnection(connectionString);
             // var cmdText = "SELECT * FROM Task";
             // using var command = new SqlCommand(cmdText, connection);
