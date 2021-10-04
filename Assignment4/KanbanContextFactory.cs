@@ -13,7 +13,7 @@ namespace Assignment4
         public KanbanContext CreateDbContext(string[] args)
         {
 
-            var connectionString = "Server=localhost;Database=Kanban;User Id=sa;Password=cb715ee5-3230-43a3-9fc2-adb1ed99d316";
+            var connectionString = "Server=localhost;Database=Kanban;User Id=SA;Password=cb715ee5-3230-43a3-9fc2-adb1ed99d316";
 
             var optionsBuilder = new DbContextOptionsBuilder<KanbanContext>()
                 .UseSqlServer(connectionString);
@@ -23,14 +23,15 @@ namespace Assignment4
 
         public static void Seed(KanbanContext context)
         {
-            context.Database.ExecuteSqlRaw("DELETE dbo.Tasks");
-            context.Database.ExecuteSqlRaw("DELETE dbo.Tags");
-            context.Database.ExecuteSqlRaw("DELETE dbo.Users");
-            context.Database.ExecuteSqlRaw("DELETE dbo.TaskRepositories");
-            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Tasks', RESEED, 0)");
-            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Tags', RESEED, 0)");
-            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Users', RESEED, 0)");
-            context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.TaskRepositories', RESEED, 0)");
+            Console.WriteLine(context);
+            // context.Database.ExecuteSqlRaw("DELETE dbo.Tasks");
+            // context.Database.ExecuteSqlRaw("DELETE dbo.Tags");
+            // context.Database.ExecuteSqlRaw("DELETE dbo.Users");
+            // context.Database.ExecuteSqlRaw("DELETE dbo.TaskRepositories");
+            // context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Tasks', RESEED, 0)");
+            // context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Tags', RESEED, 0)");
+            // context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.Users', RESEED, 0)");
+            // context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('dbo.TaskRepositories', RESEED, 0)");
 
             var user = new User {
                 Id = 1,
