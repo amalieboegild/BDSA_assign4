@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Assignment4.Entities
 {
@@ -9,7 +12,6 @@ namespace Assignment4.Entities
 
         [Required]
         [StringLength(50)]
-        [Index(IsUnique=true)]
         public string Name { get; set; }
 
         public ICollection<Task> Tasks { get; set; }

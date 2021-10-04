@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Assignment4.Entities
 {
     public class User
