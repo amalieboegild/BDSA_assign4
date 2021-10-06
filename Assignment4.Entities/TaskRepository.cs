@@ -13,7 +13,7 @@ namespace Assignment4.Entities
             dbContext = context;
         }
 
-        IReadOnlyCollection<TaskDTO> All()
+        public IReadOnlyCollection<TaskDTO> All()
         {
             return dbContext.Tasks.Select(x => new TaskDTO
             {
@@ -27,7 +27,7 @@ namespace Assignment4.Entities
 
         }
 
-        int Create(TaskDTO task)
+        public int Create(TaskDTO task)
         {
             User user = dbContext.Users.SingleOrDefault(u => u.Id == task.AssignedToId.GetValueOrDefault());
 
@@ -44,7 +44,7 @@ namespace Assignment4.Entities
             
         }
 
-        void Delete(int taskId)
+        public void Delete(int taskId)
         {
             Task task = dbContext.Tasks.Single(t => t.Id == taskId);
             dbContext.Tasks.Remove(task);
@@ -52,7 +52,7 @@ namespace Assignment4.Entities
             dbContext.SaveChanges();   
         }
 
-        TaskDetailsDTO FindById(int id)
+        public TaskDetailsDTO FindById(int id)
         {
             Task task = dbContext.Tasks.Single(t => t.Id == id);
             
@@ -70,7 +70,7 @@ namespace Assignment4.Entities
             };
         }
 
-        void Update(TaskDTO task)
+        public void Update(TaskDTO task)
         {
             Task dbTask = dbContext.Tasks.Single(x => x.Id == task.Id);
             User dbUser = dbContext.Users.SingleOrDefault(x => x.Id == task.AssignedToId.GetValueOrDefault());
