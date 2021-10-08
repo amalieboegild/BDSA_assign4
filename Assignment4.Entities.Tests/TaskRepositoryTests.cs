@@ -84,9 +84,14 @@ namespace Assignment4.Entities.Tests
 
 
             // Assert
+            Assert.Equal(expected.Id, actual.Id);
+            Assert.Equal(expected.Title, actual.Title);
+            Assert.Equal(expected.Description, actual.Description);
+            Assert.Equal(expected.AssignedToId, actual.AssignedToId);
+            Assert.Equal(expected.AssignedToName, actual.AssignedToName);
+            Assert.Equal(expected.AssignedToEmail, actual.AssignedToEmail);
             Assert.Equal(expected.Tags, actual.Tags);
-            
-            Assert.Equal(expected, actual);
+            Assert.Equal(expected.State, actual.State);
         }
 
         public void Dispose() {
