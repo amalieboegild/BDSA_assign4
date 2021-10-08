@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore.Sqlite;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
@@ -12,13 +16,14 @@ namespace Assignment4
     {
         public KanbanContext CreateDbContext(string[] args)
         {
+            var connection = new SqliteConnection("Filename=local.db");
+            connection.Open();
+            var builder = new DbContextOptionsBuilder<KanbanContext>();
+            builder.UseSqlite(connection);
 
-            var connectionString = "Server=localhost;Database=Kanban;User Id=postgres;Password=1";
-
-            var optionsBuilder = new DbContextOptionsBuilder<KanbanContext>()
-                .UseNpgsql(connectionString, b => b.MigrationsAssembly("Assignment4"));
-
-            return new KanbanContext(optionsBuilder.Options);
+            var _ctx = new KanbanContext(builder.Options);
+            _ctx.Database.EnsureCreated();
+            return _ctx;
         }
 
         public static void Seed(KanbanContext context)
@@ -43,6 +48,7 @@ namespace Assignment4
             };
             user.Tasks.Add(task);
             tag.Tasks.Add(task);
+            task.Tags.Add(tag);
 
             context.Users.AddRange(
                 user
