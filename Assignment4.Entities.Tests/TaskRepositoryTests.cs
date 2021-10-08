@@ -21,6 +21,7 @@ namespace Assignment4.Entities.Tests
 
         public TaskRepositoryTests() {
             var connection = new SqliteConnection("Filename=:memory:");
+            connection.Open();
             var builder = new DbContextOptionsBuilder<KanbanContext>();
             builder.UseSqlite(connection);
 
@@ -36,11 +37,11 @@ namespace Assignment4.Entities.Tests
                 Tasks = new List<Task>()
             };
 
-            /*var tag = new Tag
+            var tag = new Tag
             {
                 Name = "Skrrrt",
                 Tasks = new List<Task>()
-            };*/
+            };
 
             var task = new Task
             {
@@ -51,7 +52,8 @@ namespace Assignment4.Entities.Tests
                 Tags = new List<Tag> ()
             };
             user.Tasks.Add(task);
-            //tag.Tasks.Add(task);
+            tag.Tasks.Add(task);
+            task.Tags.Add(tag);
 
             _ctx.Users.AddRange(
                 user
@@ -63,25 +65,27 @@ namespace Assignment4.Entities.Tests
         [Fact]
         public void CanFindById() {
             // Arrange
-
             TaskDetailsDTO expected = new TaskDetailsDTO
             {
-              Id = 2,
-              Title = "Test Task",
-              Description = "This is a desc",
+              Id = 1,
+              Title = "Work on it",
+              Description = "Yeeet",
               AssignedToId = 1,
 
-              AssignedToName = "Test",
-              AssignedToEmail = "abc@gmail.com",
-              Tags = new string[] {"Test Tag"},
+              AssignedToName = "Snoop Dog",
+              AssignedToEmail = "abc@skrrrt.com",
+              Tags = new List<string> { "Skrrrt" },
               State = State.Active
             };
 
 
             // Act
-            var actual = _repo.FindById(2);
+            var actual = _repo.FindById(1);
+
 
             // Assert
+            Assert.Equal(expected.Tags, actual.Tags);
+            
             Assert.Equal(expected, actual);
         }
 

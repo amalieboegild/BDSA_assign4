@@ -65,7 +65,7 @@ namespace Assignment4.Entities
 
                 AssignedToName = task.AssignedTo.Name,
                 AssignedToEmail = task.AssignedTo.Email,
-                Tags = task.Tags.Select(tag => tag.Name),
+                Tags = task.Tags.Select(tag => tag.Name).ToList(),
                 State = task.State
             };
         }
