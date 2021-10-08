@@ -13,6 +13,5 @@ namespace Assignment4.Entities
             dbContext = context;
         }
 
-        
     }
 }
