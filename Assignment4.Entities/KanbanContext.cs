@@ -29,20 +29,6 @@ namespace Assignment4.Entities
                 .Property(e => e.State)
                 .HasConversion(new EnumToStringConverter<State>());
 
-            // builder.Entity<TagTask>()
-            //     .HasKey(t => new { t.PostId, t.TagId });
-
-            // builder.Entity<TagTask>()
-            //     .HasOne(pt => pt.Post)
-            //     .WithMany(p => p.PostTags)
-            //     .HasForeignKey(pt => pt.PostId);
-
-            // builder.Entity<TagTask>()
-            //     .HasOne(pt => pt.Tag)
-            //     .WithMany(t => t.PostTags)
-            //     .HasForeignKey(pt => pt.TagId);
-
-            //this.SeedData(builder);
         }
 
         private void SeedData(ModelBuilder builder) {
