@@ -86,11 +86,46 @@ namespace Assignment4.Entities.Tests
             // Assert
             Assert.Equal(expected.Tags, actual.Tags);
             
-            Assert.Equal(expected, actual);
+            //Assert.Equal(expected, actual);
         }
 
         public void Dispose() {
             _ctx.Dispose();
+        }
+
+        [Fact]
+        public void canCreate() {
+            // Arrange
+            TaskDTO expected = new TaskDTO
+            {
+              Id = 2,
+              Title = "Work on it",
+              AssignedToId = 1,
+              Description = "Yeeet",
+              State = State.Active,
+              Tags = new List<string> { "Skrrrt" }
+            };
+
+
+            // Act
+            var actual = _repo.Create(expected);
+
+
+            // Assert
+            Assert.Equal(expected.Id, actual);
+        }
+
+        [Fact]
+        public void canDelete() {
+
+            // Act
+            _repo.Delete(1);
+
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(()=>{
+                _repo.FindById(1);
+            });
         }
 
     }
