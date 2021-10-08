@@ -48,6 +48,7 @@ namespace Assignment4
             };
             user.Tasks.Add(task);
             tag.Tasks.Add(task);
+            task.Tags.Add(tag);
 
             context.Users.AddRange(
                 user
