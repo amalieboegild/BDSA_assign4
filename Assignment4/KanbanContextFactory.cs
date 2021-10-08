@@ -23,35 +23,32 @@ namespace Assignment4
 
         public static void Seed(KanbanContext context)
         {
-        //     var user = new User {
-        //         Id = 1,
-        //         Name = "Snoop Dog",
-        //         Email = "abc@skrrrt.com",
-        //         Tasks = new List<Task>()
-        //     };
+            var user = new User {
+                Name = "Snoop Dog",
+                Email = "abc@rrt.com",
+                Tasks = new List<Task>()
+            };
 
-        //     var tag = new Tag {
-        //       Id = 1,
-        //       Name = "Skrrrt",
-        //       Tasks = new List<Task>()
-        //     };
+            var tag = new Tag {
+              Name = "Skrrrt",
+              Tasks = new List<Task>()
+            };
 
-        //     var task = new Task {
-        //         Id = 1,
-        //         Title = "Work on it",
-        //         AssignedTo = user,
-        //         Description = "Yeeet",
-        //         State = Core.State.Active,
-        //         Tags = new List<Tag> { tag }
-        //     };
+            var task = new Task {
+                Title = "Work on it",
+                AssignedTo = user,
+                Description = "Yeeet",
+                State = Core.State.Active,
+                Tags = new List<Tag> { tag }
+            };
+            user.Tasks.Add(task);
+            tag.Tasks.Add(task);
 
-        //     tag.Tasks.Add(task);
+            context.Users.AddRange(
+                user
+            );
 
-        //     context.Users.AddRange(
-        //         user
-        //     );
-
-        //     context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Assignment4
             KanbanContextFactory factory = new KanbanContextFactory();
             KanbanContext kc = factory.CreateDbContext(args);
 
-            //KanbanContextFactory.Seed(kc);
+            KanbanContextFactory.Seed(kc);
 
             
 

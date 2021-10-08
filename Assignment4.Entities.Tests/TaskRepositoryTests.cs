@@ -7,7 +7,7 @@ using Assignment4.Core;
 
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Sqlite;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace Assignment4.Entities.Tests
