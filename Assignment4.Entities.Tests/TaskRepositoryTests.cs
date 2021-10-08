@@ -86,7 +86,7 @@ namespace Assignment4.Entities.Tests
             // Assert
             Assert.Equal(expected.Tags, actual.Tags);
             
-            //Assert.Equal(expected, actual);
+            Assert.Equal(expected, actual);
         }
 
         public void Dispose() {
