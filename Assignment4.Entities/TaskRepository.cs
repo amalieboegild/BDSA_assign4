@@ -36,7 +36,7 @@ namespace Assignment4.Entities
                 Title = task.Title,
                 AssignedTo = user,
                 Description = task.Description,
-                State = task.State,
+                State = State.New,
                 Tags = dbContext.Tags.Where(x => task.Tags.Contains(x.Name)).ToList()
             });
 
@@ -44,12 +44,23 @@ namespace Assignment4.Entities
             
         }
 
-        public void Delete(int taskId)
+        public Response Delete(int taskId)
         {
             Task task = dbContext.Tasks.Single(t => t.Id == taskId);
-            dbContext.Tasks.Remove(task);
-
-            dbContext.SaveChanges();   
+            if(task.State == State.New)
+            {
+                dbContext.Tasks.Remove(task);
+                dbContext.SaveChanges();  
+                return Response.Deleted;
+            } else if(task.State == State.Active)
+            {
+                task.State = State.Removed;
+                dbContext.SaveChanges();  
+                return Response.Updated;
+            }  
+                
+            return Response.Conflict;   
+            
         }
 
         public void Dispose()
