@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Assignment4.Entities
 {
-    public class TaskRepository
+    public class TaskRepository: ITaskRepository
     {
         private readonly KanbanContext dbContext;
 
@@ -52,7 +52,12 @@ namespace Assignment4.Entities
             dbContext.SaveChanges();   
         }
 
-        public TaskDetailsDTO FindById(int id)
+        public void Dispose()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public TaskDetailsDTO FindById(int id) 
         {
             Task task = dbContext.Tasks.Single(t => t.Id == id);
             
